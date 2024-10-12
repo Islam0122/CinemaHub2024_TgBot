@@ -26,7 +26,7 @@ from handlers.user_panel.unknown_functions import unknown_private_router
 
 session = AiohttpSession(proxy="http://proxy.server:3128")
 
-bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML,session=session)
+bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML)
 bot.my_admins_list = []
 bot.group_id = os.getenv('group_id')
 
