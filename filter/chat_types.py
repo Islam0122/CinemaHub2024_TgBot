@@ -28,7 +28,6 @@ class IsSubscribedFilter(BaseFilter):
     async def __call__(self, message: types.Message, bot: Bot) -> bool:
         # Переменная для отслеживания статуса подписки
         all_subscribed = True
-        await message.delete()
         for chat_id in self.chat_ids:
             try:
                 member = await bot.get_chat_member(chat_id=chat_id, user_id=message.from_user.id)
@@ -60,8 +59,7 @@ class IsSubscribedFilter(BaseFilter):
 
                 keyboard.adjust(1).as_markup()
 
-                await bot.send_message(
-                    chat_id=message.from_user.id,
+                await message.edit_text(
                     text=(
                         "\n*Пожалуйста, подпишитесь на наши каналы:*\n"
                         "_Это важно для продолжения работы с ботом!_\n"
