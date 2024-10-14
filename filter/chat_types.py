@@ -28,7 +28,7 @@ class IsSubscribedFilter(BaseFilter):
     async def __call__(self, message: types.Message, bot: Bot) -> bool:
         # Переменная для отслеживания статуса подписки
         all_subscribed = True
-
+        await message.delete()
         for chat_id in self.chat_ids:
             try:
                 member = await bot.get_chat_member(chat_id=chat_id, user_id=message.from_user.id)
