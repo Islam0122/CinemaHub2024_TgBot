@@ -29,7 +29,7 @@ async def send_review(user, target):
     )
 
 
-@review_private_router.message(Command("leave_review"),is_subscribed_filter)
+@review_private_router.message(Command("leave_review"))
 async def send_review_request(message: types.Message, state: FSMContext):
     await send_review(message.from_user, message)
     await state.set_state(ReviewState.WaitingForReview)

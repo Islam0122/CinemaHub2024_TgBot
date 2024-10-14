@@ -11,7 +11,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.orm_query import orm_get_cinema_by_code
-from filter.chat_types import ChatTypeFilter
+from filter.chat_types import ChatTypeFilter, is_subscribed_filter
 from handlers.user_panel.parser_functions import search_movie_by_name, search_movie_by_code
 from handlers.user_panel.start_functions import user_preferences
 from keyboard.inline import return_inline_keyboard
@@ -26,7 +26,7 @@ class SearchState(StatesGroup):
     search = State()
 
 
-@search_private_router.callback_query(F.data == 'search_by_name')
+@search_private_router.callback_query(F.data == 'search_by_name',is_subscribed_filter)
 async def search_by_name(query: types.CallbackQuery, state: FSMContext):
     await query.message.delete()
     language = user_preferences.get(query.from_user.id, {}).get('language', 'ru')
@@ -60,7 +60,7 @@ async def process_search_by_name(message: types.Message, state: FSMContext):
     await state.clear()
 
 
-@search_private_router.callback_query(F.data == 'search_by_code')
+@search_private_router.callback_query(F.data == 'search_by_code',is_subscribed_filter)
 async def search_by_code(query: types.CallbackQuery):
     await query.message.delete()
     language = user_preferences.get(query.from_user.id, {}).get('language', 'ru')

@@ -9,17 +9,17 @@ unknown_private_router = Router()
 unknown_private_router.message.filter(ChatTypeFilter(['private']))
 
 
-# @unknown_private_router.message()
-# async def unknown_command(message: types.Message):
-#     await message.delete()
-#     user_id = message.from_user.id
-#     if user_id not in user_preferences:
-#         user_preferences[user_id] = {'language': 'ru'}
-#
-#     language = user_preferences[user_id]['language']
-#     response_message = messages[language]['unknown_command']
-#
-#     m=await message.answer(response_message)
-#     await asyncio.sleep(3)
-#     await m.delete()
+@unknown_private_router.message()
+async def unknown_command(message: types.Message):
+    await message.delete()
+    user_id = message.from_user.id
+    if user_id not in user_preferences:
+        user_preferences[user_id] = {'language': 'ru'}
+
+    language = user_preferences[user_id]['language']
+    response_message = messages[language]['unknown_command']
+
+    m=await message.answer(response_message)
+    await asyncio.sleep(3)
+    await m.delete()
 

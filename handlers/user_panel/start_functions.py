@@ -37,7 +37,7 @@ async def send_welcome_message(user, target, session: AsyncSession, photo_path='
     )
 
 
-@start_functions_private_router.message(CommandStart(), is_subscribed_filter)
+@start_functions_private_router.message(CommandStart())
 @start_functions_private_router.message(F.text.lower() == 'start')
 async def start_cmd(message: types.Message, session: AsyncSession,bot:Bot):
     """Обработчик команды /start"""
@@ -51,7 +51,7 @@ async def start_command_callback_query(query: types.CallbackQuery, session: Asyn
     await send_welcome_message(query.from_user, query.message, session)
 
 
-@start_functions_private_router.message(Command("select_language"), is_subscribed_filter)
+@start_functions_private_router.message(Command("select_language"))
 async def select_language(message: types.Message):
     """Обработчик команды выбора языка через сообщение"""
     user_id = message.from_user.id
