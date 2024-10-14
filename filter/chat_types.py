@@ -59,7 +59,7 @@ class IsSubscribedFilter(BaseFilter):
 
                 keyboard.adjust(1).as_markup()
 
-                await message.edit_text(
+                await message.edit_caption(
                     text=(
                         "\n*Пожалуйста, подпишитесь на наши каналы:*\n"
                         "_Это важно для продолжения работы с ботом!_\n"
