@@ -25,19 +25,19 @@ class IsSubscribedFilter(BaseFilter):
     def __init__(self, chat_ids: list[int]) -> None:
         self.chat_ids = chat_ids  # Список ID каналов или групп для проверки подписки
 
-    async def __call__(self, message: types.Message | types.CallbackQuery, bot: Bot) -> bool:
-        user_id = message.from_user.id if isinstance(message, types.Message) else message.message.from_user.id
+    async def __call__(self, message: types.Message, bot: Bot) -> bool:
+        # Переменная для отслеживания статуса подписки
         all_subscribed = True
 
         for chat_id in self.chat_ids:
             try:
-                member = await bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+                member = await bot.get_chat_member(chat_id=chat_id, user_id=message.from_user.id)
                 if member.status in [ChatMemberStatus.LEFT, ChatMemberStatus.KICKED]:
                     all_subscribed = False  # Пользователь не подписан
-                    break  # Прекращаем проверку
+                    break  # Прекращаем проверку, если нашли канал, на который не подписан
             except Exception as e:
-                print(f"Ошибка при проверке подписки в чате {chat_id}: {e}")
-                all_subscribed = False  # Предполагаем, что не подписан, если произошла ошибка
+                print(f"Ошибка при проверке подписки: {e}")
+                all_subscribed = False  # Если ошибка, предположим, что не подписан
 
         # Если пользователь не подписан на все каналы, отправляем сообщение
         if not all_subscribed:
@@ -60,7 +60,8 @@ class IsSubscribedFilter(BaseFilter):
 
                 keyboard.adjust(1).as_markup()
 
-                await message.message.edit_caption(
+                await bot.send_message(
+                    chat_id=message.from_user.id,
                     text=(
                         "\n*Пожалуйста, подпишитесь на наши каналы:*\n"
                         "_Это важно для продолжения работы с ботом!_\n"
