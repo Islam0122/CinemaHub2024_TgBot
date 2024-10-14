@@ -11,7 +11,7 @@ from keyboard.inline import language_selection_keyboard, start_functions_keyboar
 from message_text.text import messages
 
 start_functions_private_router = Router()
-start_functions_private_router.message.filter(ChatTypeFilter(['private']), is_subscribed_filter)
+start_functions_private_router.message.filter(ChatTypeFilter(['private']))
 user_preferences = {}
 
 
