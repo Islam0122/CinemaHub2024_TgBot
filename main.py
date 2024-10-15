@@ -21,8 +21,9 @@ from handlers.user_panel.search import search_private_router
 from handlers.user_panel.start_functions import start_functions_private_router
 from handlers.user_panel.unknown_functions import unknown_private_router
 
-session = AiohttpSession(proxy="http://proxy.server:5432")
-bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML)
+session = AiohttpSession(proxy="http://proxy.server:3128")
+bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML,session=session)
+
 bot.my_admins_list = []
 bot.group_id = os.getenv('group_id')
 dp = Dispatcher()
