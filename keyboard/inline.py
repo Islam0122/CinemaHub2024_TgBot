@@ -47,7 +47,7 @@ def language_selection_keyboard(language: str):
 def return_inline_keyboard(language: str):
     keyboard = InlineKeyboardBuilder()
     keyboard.add(
-        InlineKeyboardButton(text=messages[language]['search_kino'], callback_data='search_kino')
+        InlineKeyboardButton(text=messages[language]['search_by_name'], callback_data='search_by_name')
     )
     keyboard.add(
         InlineKeyboardButton(text=messages[language]['recommendations'], callback_data='recommendations')
