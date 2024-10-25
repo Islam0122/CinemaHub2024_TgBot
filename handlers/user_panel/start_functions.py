@@ -19,7 +19,7 @@ async def send_welcome_message(user, target, session: AsyncSession, photo_path='
     """Функция для отправки приветственного сообщения с фото."""
     user_id = user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
 
@@ -56,7 +56,7 @@ async def select_language(message: types.Message):
     """Обработчик команды выбора языка через сообщение"""
     user_id = message.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
     language = user_preferences[user_id]['language']
     keyboard = language_selection_keyboard(language)
     await message.answer(
@@ -71,7 +71,7 @@ async def select_language_callback(query: types.CallbackQuery):
     await query.message.delete()
     user_id = query.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
     keyboard = language_selection_keyboard(language)
@@ -110,18 +110,12 @@ async def set_language_callback(query: types.CallbackQuery):
 async def our_channels_callback(query: types.CallbackQuery):
     user_id = query.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
     keyboard = InlineKeyboardBuilder()
     keyboard.add(
-        types.InlineKeyboardButton(text='Канал 1 📺', url='https://t.me/gliyuio')
-    )
-    keyboard.add(
-        types.InlineKeyboardButton(text='Канал 2 📺', url='https://t.me/hkgflghg')
-    )
-    keyboard.add(
-        types.InlineKeyboardButton(text='Канал 3 📺', url='https://t.me/hhfjgkg')
+        types.InlineKeyboardButton(text='Канал 1', url='https://t.me/cinema_hub2024')
     )
     keyboard.add(
         InlineKeyboardButton(text=messages[language]['return'], callback_data="start")
@@ -138,7 +132,7 @@ async def our_channels_callback(query: types.CallbackQuery):
 async def about_bot_callback(query: types.CallbackQuery):
     user_id = query.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
     await query.message.edit_caption(
@@ -151,7 +145,7 @@ async def about_bot_callback(query: types.CallbackQuery):
 async def instructions_callback(query: types.CallbackQuery):
     user_id = query.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
     await query.message.edit_caption(
@@ -164,7 +158,7 @@ async def instructions_callback(query: types.CallbackQuery):
 async def search_kino_callback(query: types.CallbackQuery):
     user_id = query.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
     language = user_preferences[user_id]['language']
 
     keyboard = InlineKeyboardBuilder()
@@ -205,13 +199,7 @@ async def check_subscription_callback(query: types.CallbackQuery, bot: Bot, sess
         # Sending the subscription buttons
         keyboard = InlineKeyboardBuilder()
         keyboard.add(
-            types.InlineKeyboardButton(text='Канал 1', url='https://t.me/gliyuio')
-        )
-        keyboard.add(
-            types.InlineKeyboardButton(text='Канал 2', url='https://t.me/hkgflghg')
-        )
-        keyboard.add(
-            types.InlineKeyboardButton(text='Канал 3', url='https://t.me/hhfjgkg')
+            types.InlineKeyboardButton(text='Канал 1', url='https://t.me/cinema_hub2024')
         )
         keyboard.add(
             types.InlineKeyboardButton(text='Check Subscription/Проверить подписку',

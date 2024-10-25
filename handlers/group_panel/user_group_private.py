@@ -26,7 +26,7 @@ async def get_admins(message: types.Message, bot: Bot):
     if message.from_user.id in admins_list:
         await message.delete()
 
-@user_group_router.message(Command("user_count"))
+@user_group_router.message(Command("user_count_english_cinemahub2024"))
 async def user_count_cmd(message: types.Message, session: AsyncSession):
     """Обработчик команды /user_count для вывода общего количества пользователей"""
     users = await orm_get_users(session)

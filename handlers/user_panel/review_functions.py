@@ -19,7 +19,7 @@ class ReviewState(StatesGroup):
 async def send_review(user, target):
     user_id = user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
 
@@ -44,8 +44,8 @@ async def send_review_request_callback_query(query: types.CallbackQuery, state: 
 
 @review_private_router.message(ReviewState.WaitingForReview)
 async def process_review(message: types.Message, state: FSMContext, bot: Bot):
-    language = user_preferences.get(message.from_user.id, {}).get('language', 'ru')
-    group_id = bot.group_id
+    language = user_preferences.get(message.from_user.id, {}).get('language', 'en')
+    group_id = -1002477930632
 
     if message.text:
         user_info = f"{message.from_user.first_name}"
@@ -66,7 +66,7 @@ async def process_review(message: types.Message, state: FSMContext, bot: Bot):
 async def cancel_review(query: types.CallbackQuery, state: FSMContext):
     await query.message.delete()
     user_id = query.from_user.id
-    language = user_preferences.get(user_id, {}).get('language', 'ru')
+    language = user_preferences.get(user_id, {}).get('language', 'en')
     await query.answer(text=messages[language]['review_cancelled'])
     await query.message.answer(text=messages[language]['cancel_review_message'],
                                reply_markup=return_inline_keyboard(language))
