@@ -19,7 +19,7 @@ async def parsser(message: types.Message):
     bot = message.bot
     user_id = message.from_user.id
     user_name = message.from_user.full_name
-    language = user_preferences.get(user_id, {}).get('language', 'ru')
+    language = user_preferences.get(user_id, {}).get('language', 'en')
     movies = parse_movies()  # Парсим данные один раз
 
     if not movies:
@@ -53,7 +53,7 @@ async def parsser(message: types.Message):
 async def recommendations(query: types.CallbackQuery):
     user_id = query.from_user.id
     user_name = query.from_user.full_name
-    language = user_preferences.get(user_id, {}).get('language', 'ru')
+    language = user_preferences.get(user_id, {}).get('language', 'en')
     movies = parse_movies()
 
     if not movies:

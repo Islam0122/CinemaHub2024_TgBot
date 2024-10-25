@@ -14,7 +14,7 @@ async def unknown_command(message: types.Message):
     await message.delete()
     user_id = message.from_user.id
     if user_id not in user_preferences:
-        user_preferences[user_id] = {'language': 'ru'}
+        user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
     response_message = messages[language]['unknown_command']

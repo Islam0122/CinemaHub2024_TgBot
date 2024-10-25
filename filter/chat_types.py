@@ -45,13 +45,7 @@ class IsSubscribedFilter(BaseFilter):
                 # Sending the subscription buttons
                 keyboard = InlineKeyboardBuilder()
                 keyboard.add(
-                    types.InlineKeyboardButton(text='Канал 1', url='https://t.me/gliyuio')
-                )
-                keyboard.add(
-                    types.InlineKeyboardButton(text='Канал 2', url='https://t.me/hkgflghg')
-                )
-                keyboard.add(
-                    types.InlineKeyboardButton(text='Канал 3', url='https://t.me/hhfjgkg')
+                    types.InlineKeyboardButton(text='Канал 1', url='https://t.me/cinema_hub2024')
                 )
                 keyboard.add(
                     types.InlineKeyboardButton(text='Check Subscription/Проверить подписку',
@@ -77,9 +71,8 @@ class IsSubscribedFilter(BaseFilter):
 
         return all_subscribed
 
+
 SUBSCRIPTION_CHAT_IDS = [
-    -1002337339387,
-    -1002318559576,
     -1002465814665,
 ]
 
