@@ -108,6 +108,5 @@ messages = {
         'cinema_not_found': '❌ Cinema not found or the code is incorrect. Please try again!',
         'our_channels': 'Our Channels 📺',
         'our_channels_message':'Check out our channels! Join us to stay informed on important updates! 🎯',
-
     },
 }

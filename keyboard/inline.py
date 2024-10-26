@@ -21,6 +21,9 @@ def start_functions_keyboard(language: str):
         InlineKeyboardButton(text=messages[language]['our_channels'], callback_data='our_channels')
     )
     keyboard.add(
+        InlineKeyboardButton(text='English Chat! 🎉', url="https://t.me/english_chat_2024")
+    )
+    keyboard.add(
         InlineKeyboardButton(text=messages[language]['about_bot'], callback_data='about_bot')
     )
     keyboard.add(
@@ -30,7 +33,7 @@ def start_functions_keyboard(language: str):
         InlineKeyboardButton(text=messages[language]['select_language'], callback_data='select_language')
     )
 
-    return keyboard.adjust(2,1,1,2).as_markup()
+    return keyboard.adjust(2,1,2,2).as_markup()
 
 
 def language_selection_keyboard(language: str):
