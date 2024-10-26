@@ -51,7 +51,7 @@ def parse_movies():
 
 
 def search_movie_by_name(movie_name: str):
-    url = f"https://inoriginal.net/?story={movie_name}&do=search&subaction=search"
+    url = f"https://engvideo.net/ru/films/?title={movie_name}"
     html = requests.get(url=url, headers=HEADERS)
 
     if html.status_code == 200:
@@ -64,7 +64,7 @@ def search_movie_by_name(movie_name: str):
 
 def search_movie_by_code(movie_name: str):
     """Ищет фильмы по названию и возвращает список найденных фильмов."""
-    url = f"https://inoriginal.net/?story={movie_name}&do=search&subaction=search"
+    url = f"https://engvideo.net/ru/films/?title={movie_name}"
     html = requests.get(url=url, headers=HEADERS)
     data = get_data(html.text, limit=1)
     return data
