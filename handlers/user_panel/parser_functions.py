@@ -30,7 +30,7 @@ def get_data(html, limit: int = 5):
         link = i.find('a').get('href', '')  # Берём ссылку на фильм
 
         kino.append({
-            "url": link
+            "url": f"https://engvideo.net/ru/films/{link}"
         })
 
     return kino
