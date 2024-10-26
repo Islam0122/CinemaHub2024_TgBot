@@ -21,7 +21,7 @@ from handlers.user_panel.search import search_private_router
 from handlers.user_panel.start_functions import start_functions_private_router
 from handlers.user_panel.unknown_functions import unknown_private_router
 
-session = AiohttpSession(proxy="http://proxy.server:5432")
+session = AiohttpSession()
 bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML,session=session)
 bot.my_admins_list = []
 bot.group_id = os.getenv('group_id')
@@ -54,10 +54,14 @@ async def main():
     dp.startup.register(on_startup)
     dp.shutdown.register(on_shutdown)
     dp.update.middleware(DataBaseSession(session_pool=session_maker))
-    await bot.delete_webhook(drop_pending_updates=True)
-    await bot.delete_my_commands(scope=types.BotCommandScopeAllPrivateChats())
-    await bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+
+    try:
+        await bot.delete_webhook(drop_pending_updates=True)
+        await bot.delete_my_commands(scope=types.BotCommandScopeAllPrivateChats())
+        await bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
+        await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    finally:
+        await bot.session.close()
 
 
 if __name__ == "__main__":
