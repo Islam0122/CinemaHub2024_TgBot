@@ -8,13 +8,26 @@ HEADERS = {
 }
 
 
+# def get_data(html, limit: int = 5):
+#     soup = BS(html, "html.parser")
+#     items = soup.find_all("article", class_="cat-item", limit=limit)  # Изменить limit по необходимости
+#     kino = []
+#
+#     for i in items:
+#         link = i.find('a', class_='link-title').get('href', '')  # Берём ссылку на фильм
+#
+#         kino.append({
+#             "url": link
+#         })
+#
+#     return kino
 def get_data(html, limit: int = 5):
     soup = BS(html, "html.parser")
-    items = soup.find_all("article", class_="cat-item", limit=limit)  # Изменить limit по необходимости
+    items = soup.find_all("div", class_="col-sm-30 col-md-15 col-lg-15 margin_b20", limit=limit)  # Изменить limit по необходимости
     kino = []
 
     for i in items:
-        link = i.find('a', class_='link-title').get('href', '')  # Берём ссылку на фильм
+        link = i.find('a').get('href', '')  # Берём ссылку на фильм
 
         kino.append({
             "url": link
@@ -24,7 +37,7 @@ def get_data(html, limit: int = 5):
 
 
 def parse_movies():
-    url = "https://inoriginal.net/lastnews.html"
+    url = "https://engvideo.net/ru/films/"
 
     try:
         html = requests.get(url, headers=HEADERS)
