@@ -52,7 +52,7 @@ messages = {
         'cinema_not_found': '😞 Ой, кинотеатр не найден или код указан неверно. Попробуйте ещё раз!',
         'our_channels': 'Наши каналы 📺',
         'our_channels_message': '📢 Наши каналы! Присоединяйтесь, чтобы не пропустить важное! 🎯',
-
+        'movie_found': 'Вот список найденных фильмов:',
     },
     'en': {
         'welcome': 'Welcome to our cinema bot! 🎬\nChoose an action below.',
@@ -108,5 +108,6 @@ messages = {
         'cinema_not_found': '❌ Cinema not found or the code is incorrect. Please try again!',
         'our_channels': 'Our Channels 📺',
         'our_channels_message':'Check out our channels! Join us to stay informed on important updates! 🎯',
+        'movie_found':'Here’s a list of found movies:',
     },
 }
