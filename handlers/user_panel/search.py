@@ -39,21 +39,22 @@ async def process_search_by_name(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
     language = user_preferences.get(user_id, {}).get('language', 'en')
     movie_name = message.text.strip()  # Получаем введённое название фильма
+
     movie_results = search_movie_by_name(movie_name)
 
     if movie_results:
-        keyboard = InlineKeyboardBuilder()
         for movie in movie_results:
+            keyboard = InlineKeyboardBuilder()
             keyboard.add(
-                InlineKeyboardButton(text=movie['title'], url=movie['url']),
+                InlineKeyboardButton(text=messages[language]['watch'], url=movie['url']),
             )
-        keyboard.add(
-            InlineKeyboardButton(text=messages[language]['return'], callback_data="start"),
-        )
-        await message.answer(
-                messages[language]['movie_found'],
-                reply_markup=keyboard.adjust(1).as_markup(),
+            await message.answer(
+                f"{movie['url']}",
+                reply_markup=keyboard.as_markup(),
             )
+        await message.answer(messages[language]['greeting'].format(name=message.from_user.full_name),
+                                   reply_markup=return_inline_keyboard(language),
+                                   )
     else:
         await message.answer(messages[language]['movie_not_found'],reply_markup=return_inline_keyboard(language),)
     await state.clear()
