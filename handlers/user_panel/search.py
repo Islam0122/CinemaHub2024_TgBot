@@ -52,7 +52,7 @@ async def process_search_by_name(message: types.Message, state: FSMContext):
         )
         await message.answer(
                 messages[language]['movie_found'],
-                reply_markup=keyboard.as_markup(),
+                reply_markup=keyboard.adjust(1).as_markup(),
             )
     else:
         await message.answer(messages[language]['movie_not_found'],reply_markup=return_inline_keyboard(language),)

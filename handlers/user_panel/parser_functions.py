@@ -23,16 +23,19 @@ HEADERS = {
 #     return kino
 def get_data(html, limit: int = 5):
     soup = BS(html, "html.parser")
-    items = soup.find_all("div", class_="col-sm-30 col-md-15 col-lg-15 margin_b20", limit=limit)  # Изменить limit по необходимости
+    items = soup.find_all("div", class_="col-sm-30 col-md-15 col-lg-15 margin_b20", limit=limit)  # Limit the number of items based on the parameter
     kino = []
 
     for i in items:
-        link = i.find('a').get('href', '')  # Берём ссылку на фильм
+        link = i.find('a').get('href', '')  # Get the link to the movie
 
-        kino.append({
-            "title":f"{i.find('h5')}",
-            "url": f"https://engvideo.net/{link}"
-        })
+        title = i.find('h5').get_text(strip=True)  # Extract the title text, stripping whitespace
+
+        if link:  # Ensure that the link is not empty
+            kino.append({
+                "title": title,
+                "url": f"https://engvideo.net/{link}"
+            })
 
     return kino
 
