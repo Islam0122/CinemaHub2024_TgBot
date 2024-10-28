@@ -8,82 +8,50 @@ HEADERS = {
 }
 
 
-
 # def get_data(html, limit: int = 5):
 #     soup = BS(html, "html.parser")
-#     items = soup.find_all("div", class_="col-sm-30 col-md-15 col-lg-15 margin_b20", limit=limit)  # Изменить limit по необходимости
+#     items = soup.find_all("article", class_="cat-item", limit=limit)  # Изменить limit по необходимости
 #     kino = []
 #
 #     for i in items:
-#         link = i.find('a').get('href', '')  # Берём ссылку на фильм
+#         link = i.find('a', class_='link-title').get('href', '')  # Берём ссылку на фильм
 #
 #         kino.append({
-#             "url": f"https://engvideo.net/{link}"
+#             "url": link
 #         })
 #
 #     return kino
-
-
-# def parse_movies():
-#     url = "https://engvideo.net/ru/films/"
-#
-#     try:
-#         html = requests.get(url, headers=HEADERS)
-#         html.raise_for_status()  # Проверка на ошибки
-#
-#         return get_data(html.text, 5)
-#
-#     except requests.exceptions.RequestException as e:
-#         print(f"Error: {e}")
-#         return []
-#
-#
-# def search_movie_by_name(movie_name: str):
-#     url = f"https://engvideo.net/ru/films/?title={movie_name}"
-#     html = requests.get(url=url, headers=HEADERS)
-#
-#     if html.status_code == 200:
-#         data = get_data(html.text, 3)
-#         return data
-#     else:
-#         print(f"Error: {html.status_code}")
-#         return []
-#
-#
-# def search_movie_by_code(movie_name: str):
-#     """Ищет фильмы по названию и возвращает список найденных фильмов."""
-#     url = f"https://engvideo.net/ru/films/?title={movie_name}"
-#     html = requests.get(url=url, headers=HEADERS)
-#     data = get_data(html.text, limit=1)
-#     return data
-
-
 def get_data(html, limit: int = 5):
     soup = BS(html, "html.parser")
-    items = soup.find_all("article", class_="cat-item", limit=limit)  # Изменить limit по необходимости
+    items = soup.find_all("div", class_="col-sm-30 col-md-15 col-lg-15 margin_b20", limit=limit)  # Изменить limit по необходимости
     kino = []
+
     for i in items:
-        link = i.find('a', class_='link-title').get('href', '')  # Берём ссылку на фильм
+        link = i.find('a').get('href', '')  # Берём ссылку на фильм
+
         kino.append({
-            "url": link
+            "url": f"https://engvideo.net/{link}"
         })
+
     return kino
 
 
 def parse_movies():
-    url = "https://inoriginal.net/lastnews.html"
+    url = "https://engvideo.net/ru/films/"
 
     try:
         html = requests.get(url, headers=HEADERS)
         html.raise_for_status()  # Проверка на ошибки
+
         return get_data(html.text, 5)
+
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
         return []
 
 
 def search_movie_by_name(movie_name: str):
-    url = f"https://inoriginal.net/?story={movie_name}&do=search&subaction=search"
+    url = f"https://engvideo.net/ru/films/?title={movie_name}"
     html = requests.get(url=url, headers=HEADERS)
 
     if html.status_code == 200:
@@ -96,7 +64,7 @@ def search_movie_by_name(movie_name: str):
 
 def search_movie_by_code(movie_name: str):
     """Ищет фильмы по названию и возвращает список найденных фильмов."""
-    url = f"https://inoriginal.net/?story={movie_name}&do=search&subaction=search"
+    url = f"https://engvideo.net/ru/films/?title={movie_name}"
     html = requests.get(url=url, headers=HEADERS)
     data = get_data(html.text, limit=1)
     return data
