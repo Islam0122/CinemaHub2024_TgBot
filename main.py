@@ -13,7 +13,6 @@ from handlers.admin_panel.admin_start_functions import admin_start_functions_pri
 from handlers.admin_panel.send_mesage import send_message_private_router
 from handlers.group_panel.user_group_private import user_group_router
 from common.bot_cmds_list import private
-from aiogram.client.session.aiohttp import AiohttpSession
 from database.engine import create_db, drop_db, session_maker
 from handlers.user_panel.recommendations_functions import recommendations_private_router
 from handlers.user_panel.review_functions import review_private_router
@@ -21,11 +20,11 @@ from handlers.user_panel.search import search_private_router
 from handlers.user_panel.start_functions import start_functions_private_router
 from handlers.user_panel.unknown_functions import unknown_private_router
 
-session = AiohttpSession(proxy="http://proxy.server:5432")
-bot = Bot(token=os.getenv('TOKEN'), parse_mode=ParseMode.HTML)
+bot = Bot(token=os.getenv('TOKEN'))
 bot.my_admins_list = []
 bot.group_id = os.getenv('group_id')
 dp = Dispatcher()
+
 dp.include_router(start_functions_private_router)
 dp.include_router(admin_start_functions_private_router)
 dp.include_router(send_message_private_router)

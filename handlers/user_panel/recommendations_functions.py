@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram import types
 from aiogram.types import InlineKeyboardButton
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from filter.chat_types import ChatTypeFilter, is_subscribed_filter
+from filter.chat_types import ChatTypeFilter
 from handlers.user_panel.parser_functions import parse_movies
 from handlers.user_panel.start_functions import user_preferences
 from keyboard.inline import return_inline_keyboard

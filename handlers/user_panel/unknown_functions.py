@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import F, Router, types, Bot
-from filter.chat_types import ChatTypeFilter, IsAdmin, is_subscribed_filter
+from filter.chat_types import ChatTypeFilter, IsAdmin
 
 from handlers.user_panel.start_functions import user_preferences
 from message_text.text import messages

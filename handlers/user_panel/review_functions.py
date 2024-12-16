@@ -3,7 +3,7 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from filter.chat_types import ChatTypeFilter, IsAdmin, is_subscribed_filter
+from filter.chat_types import ChatTypeFilter, IsAdmin
 from handlers.user_panel.start_functions import user_preferences
 from keyboard.inline import return_inline_keyboard, cancel_inline_keyboard
 from message_text.text import messages
@@ -16,36 +16,25 @@ class ReviewState(StatesGroup):
     WaitingForReview = State()
 
 
-async def send_review(user, target):
+
+
+@review_private_router.callback_query(F.data.startswith("leave_review"))
+async def send_review_request_callback_query(query: types.CallbackQuery, state: FSMContext):
+    user = query.from_user
     user_id = user.id
     if user_id not in user_preferences:
         user_preferences[user_id] = {'language': 'en'}
 
     language = user_preferences[user_id]['language']
-
-    await target.answer(
-        text=messages[language]['leave_review_message'],
-        reply_markup=cancel_inline_keyboard(language)
-    )
-
-
-@review_private_router.message(Command("leave_review"))
-async def send_review_request(message: types.Message, state: FSMContext):
-    await send_review(message.from_user, message)
-    await state.set_state(ReviewState.WaitingForReview)
-
-
-@review_private_router.callback_query(F.data.startswith("leave_review"))
-async def send_review_request_callback_query(query: types.CallbackQuery, state: FSMContext):
-    await query.message.delete()
-    await send_review(query.from_user, query.message)
+    await query.message.edit_caption(caption=messages[language]['leave_review_message'],
+        reply_markup=cancel_inline_keyboard(language))
     await state.set_state(ReviewState.WaitingForReview)
 
 
 @review_private_router.message(ReviewState.WaitingForReview)
 async def process_review(message: types.Message, state: FSMContext, bot: Bot):
     language = user_preferences.get(message.from_user.id, {}).get('language', 'en')
-    group_id = -1002477930632
+    group_id = "-1002477930632"
 
     if message.text:
         user_info = f"{message.from_user.first_name}"
